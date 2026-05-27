@@ -1,0 +1,40 @@
+/* ── Logo ── */
+.logo {
+  position: absolute;
+  top: 50%;
+  left: 60px;
+  transform: translateY(-50%);
+  z-index: 50;
+
+  /* hidden state */
+  opacity: 0;
+  filter: blur(6px);
+  transition: opacity 0.8s ease, filter 0.8s ease;
+  pointer-events: none;
+}
+
+.logo--visible {
+  opacity: 1;
+  filter: blur(0);
+  pointer-events: all;
+}
+
+.logo__img {
+  width: clamp(220px, 24vw, 340px);
+  height: auto;
+  display: block;
+  object-fit: contain;
+  filter: drop-shadow(0 0 24px rgba(255, 255, 255, 0.10));
+}
+
+@media (max-width: 768px) {
+  .logo {
+    top: 80px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .logo__img {
+    width: clamp(180px, 60vw, 260px);
+  }
+}

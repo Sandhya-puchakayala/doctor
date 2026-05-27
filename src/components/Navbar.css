@@ -1,0 +1,130 @@
+/* ── Navbar ── */
+.navbar {
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  gap: 0;
+  padding: 28px 40px;
+  z-index: 100;
+
+  /* hidden state */
+  opacity: 0;
+  transform: translateY(-20px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+  pointer-events: none;
+}
+
+.navbar--visible {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: all;
+}
+
+/* ── Nav links ── */
+.navbar__links {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  gap: 36px;
+}
+
+.navbar__item {
+  position: relative;
+}
+
+.navbar__link {
+  text-decoration: none;
+  color: #ffffff;
+  font-family: 'Georgia', 'Times New Roman', serif;
+  font-size: 15px;
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  transition: color 0.25s ease;
+}
+
+.navbar__link::after {
+  content: '';
+  position: absolute;
+  bottom: -3px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: #ffffff;
+  transition: width 0.3s ease;
+}
+
+.navbar__link:hover {
+  color: #cccccc;
+}
+
+.navbar__link:hover::after {
+  width: 100%;
+}
+
+/* ── Hamburger ── */
+.navbar__hamburger {
+  background: none;
+  border: 2px solid #ffffff;
+  padding: 8px 10px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  margin-left: 36px;
+  transition: border-color 0.25s ease;
+}
+
+.navbar__hamburger:hover {
+  border-color: #aaaaaa;
+}
+
+.navbar__hamburger span {
+  display: block;
+  width: 20px;
+  height: 2px;
+  background: #ffffff;
+  transition: background 0.25s ease;
+}
+
+.navbar__hamburger:hover span {
+  background: #aaaaaa;
+}
+
+/* ── Mobile ── */
+@media (max-width: 768px) {
+  .navbar {
+    top: 0;
+    left: 0;
+    right: 0;
+    padding: 20px 24px;
+    justify-content: flex-end;
+    flex-direction: column;
+    align-items: flex-end;
+  }
+
+  .navbar__links {
+    display: none;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 18px;
+    background: rgba(0, 0, 0, 0.85);
+    padding: 20px 24px;
+    position: absolute;
+    top: 64px;
+    right: 0;
+    width: 200px;
+  }
+
+  .navbar__links--open {
+    display: flex;
+  }
+
+  .navbar__hamburger {
+    margin-left: 0;
+  }
+}
