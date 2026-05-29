@@ -3,8 +3,7 @@ import Navbar from './Navbar';
 import Logo from './Logo';
 import './HeroSection.css';
 
-const VIDEO_URL =
-  'https://res.cloudinary.com/dawgv7mq0/video/upload/v1779905129/doctor_new_bg_x1k3o9.mp4';
+const VIDEO_URL = process.env.PUBLIC_URL + '/doc_bg_1.mp4';
 
 /**
  * Animation sequence (all delays measured from page mount):
@@ -80,10 +79,16 @@ const HeroSection = () => {
         <div className="hero__image-fade" />
       </div>
 
-      {/* ── Optional: bottom tagline / scroll cue ── */}
+      {/* ── Scroll cue button below logo ── */}
       <div className={`hero__tagline ${navVisible ? 'hero__tagline--visible' : ''}`}>
-        <span>Scroll to explore</span>
-        <div className="hero__scroll-line" />
+        <span className="hero__tagline-icon">
+          <svg width="15" height="15" viewBox="0 0 15 15" fill="none">
+            <circle cx="7.5" cy="7.5" r="6.5" stroke="rgba(255,255,255,0.7)" strokeWidth="1"/>
+            <path d="M7.5 4.5v6M4.5 8l3 2.5 3-2.5" stroke="rgba(255,255,255,0.7)" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
+          </svg>
+        </span>
+        <span className="hero__tagline-text">Scroll to Explore</span>
+        <span className="hero__tagline-arrow">↗</span>
       </div>
     </section>
   );
