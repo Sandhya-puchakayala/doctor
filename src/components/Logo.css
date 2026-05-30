@@ -20,7 +20,7 @@
 }
 
 .logo__img {
-  width: clamp(220px, 24vw, 340px);
+  width: clamp(260px, 28vw, 400px);
   height: auto;
   display: block;
   object-fit: contain;
@@ -35,6 +35,6 @@
   }
 
   .logo__img {
-    width: clamp(130px, 42vw, 190px);
+    width: clamp(160px, 52vw, 230px);
   }
 }

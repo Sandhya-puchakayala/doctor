@@ -69,11 +69,17 @@ const HeroSection = ({ canAnimate }) => {
 
       {/* ── Right: hero image ── */}
       <div className="hero__image-wrap">
-        <img
-          src={process.env.PUBLIC_URL + '/SDR_8736 B.jpg.jpeg'}
-          alt="Doctor hero"
-          className={`hero__image ${imgVisible ? 'hero__image--visible' : ''}`}
-        />
+        <picture>
+          <source
+            media="(max-width: 768px)"
+            srcSet={process.env.PUBLIC_URL + '/mobileresponse__image.png'}
+          />
+          <img
+            src={process.env.PUBLIC_URL + '/SDR_8736 B.jpg.jpeg'}
+            alt="Doctor hero"
+            className={`hero__image ${imgVisible ? 'hero__image--visible' : ''}`}
+          />
+        </picture>
         {/* subtle vignette at the bottom of the image so it blends with video */}
         <div className="hero__image-fade" />
       </div>
