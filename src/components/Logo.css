@@ -29,12 +29,12 @@
 
 @media (max-width: 768px) {
   .logo {
-    top: 80px;
-    left: 50%;
-    transform: translateX(-50%);
+    top: 36px;
+    left: 24px;
+    transform: none;
   }
 
   .logo__img {
-    width: clamp(180px, 60vw, 260px);
+    width: clamp(130px, 42vw, 190px);
   }
 }

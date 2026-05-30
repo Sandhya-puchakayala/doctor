@@ -60,7 +60,6 @@
   will-change: transform;
 }
 
-/* Animation lives ONLY on the img — only the person slides up, not the overlay */
 .hero__image {
   position: absolute;
   right: 0;
@@ -69,16 +68,16 @@
   width: auto;
   max-width: none;
   display: block;
-  opacity: 1;
+  opacity: 0;
+  transition: opacity 1s ease;
 
-  /* hidden: pushed fully to the right */
-  transform: translateX(100%);
-  transition: transform 1.2s cubic-bezier(0.22, 1, 0.36, 1);
+  /* Fade left edge so it blends into the video background */
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 22%);
+  mask-image: linear-gradient(to right, transparent 0%, black 22%);
 }
 
-/* Visible: slides in from right */
-.hero__image-wrap--visible .hero__image {
-  transform: translateX(0);
+.hero__image--visible {
+  opacity: 1;
 }
 
 /* Soft fade at the bottom */
@@ -93,19 +92,15 @@
   z-index: 2;
 }
 
-/* Full-width gradient: solid black on left → transparent on right
-   This covers the logo area perfectly with no visible edge */
+/* Subtle edge darkening only — mask on hero__image handles the main blend */
 .hero__image-wrap::before {
   content: '';
   position: absolute;
   inset: 0;
   background: linear-gradient(
     to right,
-    rgba(0, 0, 0, 1.00)  0%,
-    rgba(0, 0, 0, 0.90) 18%,
-    rgba(0, 0, 0, 0.55) 35%,
-    rgba(0, 0, 0, 0.15) 55%,
-    rgba(0, 0, 0, 0.00) 75%
+    rgba(0, 0, 0, 0.00) 0%,
+    rgba(0, 0, 0, 0.00) 100%
   );
   z-index: 2;
   pointer-events: none;
@@ -202,19 +197,25 @@
    Responsive
    ═══════════════════════════════════════════ */
 @media (max-width: 768px) {
-  /* On mobile, keep the slide-up but also centre the image */
+  /* Image: fill viewport width, cover from top so hair stays visible */
   .hero__image {
-    right: auto;
-    left: 50%;
-    transform: translateX(100vw);
+    left: 0;
+    right: 0;
+    top: auto;
+    bottom: 0;
+    width: 100%;
+    height: 68vh;
+    transform: none;
+    object-fit: cover;
+    object-position: top center;
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 8%);
+    mask-image: linear-gradient(to bottom, transparent 0%, black 8%);
   }
 
-  .hero__image-wrap--visible .hero__image {
-    transform: translateX(-50%);
-  }
-
+  /* Button: clear the desktop top:50% that caused stretching, place below logo */
   .hero__tagline {
+    top: 155px;
+    bottom: auto;
     left: 24px;
-    bottom: 24px;
   }
 }

@@ -1,11 +1,15 @@
-import React from 'react'; // eslint-disable-line no-unused-vars
+import React, { useState } from 'react';
 import './App.css';
 import HeroSection from './components/HeroSection';
+import IntroVideo from './components/IntroVideo';
 
 function App() {
+  const [introDone, setIntroDone] = useState(false);
+
   return (
     <div className="App">
-      <HeroSection />
+      {!introDone && <IntroVideo onComplete={() => setIntroDone(true)} />}
+      <HeroSection canAnimate={introDone} />
     </div>
   );
 }

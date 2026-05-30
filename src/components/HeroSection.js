@@ -12,7 +12,7 @@ const VIDEO_URL = process.env.PUBLIC_URL + '/doc_bg_1.mp4';
  *   1 600 ms – logo fades/unblurs in
  *   2 200 ms – navbar slides down from top
  */
-const HeroSection = () => {
+const HeroSection = ({ canAnimate }) => {
   const [imgVisible, setImgVisible]     = useState(false);
   const [logoVisible, setLogoVisible]   = useState(false);
   const [navVisible, setNavVisible]     = useState(false);
@@ -20,29 +20,28 @@ const HeroSection = () => {
 
   const videoRef = useRef(null);
 
-  /* Kick off the animation chain once the video can play */
+  /* Keep hero video buffering silently in the background during intro */
   useEffect(() => {
     const vid = videoRef.current;
     if (!vid) return;
-
-    const startSequence = () => {
-      setVideoReady(true);
-
-      const t1 = setTimeout(() => setImgVisible(true),   800);
-      const t2 = setTimeout(() => setLogoVisible(true),  1600);
-      const t3 = setTimeout(() => setNavVisible(true),   2200);
-
-      return () => { clearTimeout(t1); clearTimeout(t2); clearTimeout(t3); };
+    const onReady = () => setVideoReady(true);
+    if (vid.readyState >= 3) { onReady(); return; }
+    vid.addEventListener('canplaythrough', onReady, { once: true });
+    const fallback = setTimeout(onReady, 2000);
+    return () => {
+      vid.removeEventListener('canplaythrough', onReady);
+      clearTimeout(fallback);
     };
-
-    /* If already ready (cached) fire immediately; else wait for canplaythrough */
-    if (vid.readyState >= 3) {
-      return startSequence();
-    }
-
-    vid.addEventListener('canplaythrough', startSequence, { once: true });
-    return () => vid.removeEventListener('canplaythrough', startSequence);
   }, []);
+
+  /* Animation sequence fires only after the intro video finishes */
+  useEffect(() => {
+    if (!canAnimate) return;
+    const t1 = setTimeout(() => setImgVisible(true),   300);
+    const t2 = setTimeout(() => setLogoVisible(true),  1000);
+    const t3 = setTimeout(() => setNavVisible(true),   1600);
+    return () => { clearTimeout(t1); clearTimeout(t2); clearTimeout(t3); };
+  }, [canAnimate]);
 
   return (
     <section className="hero">
@@ -68,12 +67,12 @@ const HeroSection = () => {
       {/* ── Top-right: navbar ── */}
       <Navbar visible={navVisible} />
 
-      {/* ── Right: hero image slides up ── */}
-      <div className={`hero__image-wrap ${imgVisible ? 'hero__image-wrap--visible' : ''}`}>
+      {/* ── Right: hero image ── */}
+      <div className="hero__image-wrap">
         <img
-          src="https://res.cloudinary.com/dawgv7mq0/image/upload/v1779905504/doctor_new_image_new_1_nzwivj.png"
+          src={process.env.PUBLIC_URL + '/SDR_8736 B.jpg.jpeg'}
           alt="Doctor hero"
-          className="hero__image"
+          className={`hero__image ${imgVisible ? 'hero__image--visible' : ''}`}
         />
         {/* subtle vignette at the bottom of the image so it blends with video */}
         <div className="hero__image-fade" />
