@@ -62,7 +62,7 @@
 
 .hero__image {
   position: absolute;
-  right: 0;
+  right: -5vw;
   top: 0;
   height: 100%;
   width: auto;
@@ -72,8 +72,8 @@
   transition: opacity 1s ease;
 
   /* Fade left edge so it blends into the video background */
-  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 32%);
-  mask-image: linear-gradient(to right, transparent 0%, black 28%);
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, transparent 15%, black 52%);
+  mask-image: linear-gradient(to right, transparent 0%, transparent 15%, black 48%);
 }
 
 .hero__image--visible {
@@ -111,7 +111,7 @@
    ═══════════════════════════════════════════ */
 .hero__tagline {
   position: absolute;
-  left: 110px;
+  left: 60px;
   top: 50%;
   z-index: 60;
   display: inline-flex;
@@ -197,7 +197,7 @@
    Responsive
    ═══════════════════════════════════════════ */
 @media (max-width: 768px) {
-  /* Image: fill viewport width, cover from top so hair stays visible */
+  /* Image: soft top + left fade so it merges smoothly into the video */
   .hero__image {
     left: 0;
     right: 0;
@@ -208,13 +208,19 @@
     transform: none;
     object-fit: cover;
     object-position: top center;
-    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 8%);
-    mask-image: linear-gradient(to bottom, transparent 0%, black 8%);
+    -webkit-mask-image:
+      linear-gradient(to bottom, transparent 0%, black 25%),
+      linear-gradient(to right,  transparent 0%, black 15%);
+    mask-image:
+      linear-gradient(to bottom, transparent 0%, black 25%),
+      linear-gradient(to right,  transparent 0%, black 15%);
+    -webkit-mask-composite: source-in;
+    mask-composite: intersect;
   }
 
   /* Button: clear the desktop top:50% that caused stretching, place below logo */
   .hero__tagline {
-    top: 155px;
+    top: 255px;
     bottom: auto;
     left: 24px;
   }
