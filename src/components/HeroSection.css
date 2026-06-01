@@ -72,8 +72,8 @@
   transition: opacity 1s ease;
 
   /* Fade left edge so it blends into the video background */
-  -webkit-mask-image: linear-gradient(to right, transparent 0%, transparent 15%, black 52%);
-  mask-image: linear-gradient(to right, transparent 0%, transparent 15%, black 48%);
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, transparent 20%, black 27%);
+  mask-image: linear-gradient(to right, transparent 0%, transparent 20%, black 27%);
 }
 
 .hero__image--visible {
@@ -222,6 +222,6 @@
   .hero__tagline {
     top: 255px;
     bottom: auto;
-    left: 24px;
+    left: 60px;
   }
 }
