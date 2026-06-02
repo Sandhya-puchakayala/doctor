@@ -84,16 +84,36 @@ const HeroSection = ({ canAnimate }) => {
         <div className="hero__image-fade" />
       </div>
 
-      {/* ── Scroll cue button below logo ── */}
+      {/* ── Explore Your Thoughts pill ── */}
       <div className={`hero__tagline ${navVisible ? 'hero__tagline--visible' : ''}`}>
-        <span className="hero__tagline-icon">
-          <svg width="15" height="15" viewBox="0 0 15 15" fill="none">
-            <circle cx="7.5" cy="7.5" r="6.5" stroke="rgba(255,255,255,0.7)" strokeWidth="1"/>
-            <path d="M7.5 4.5v6M4.5 8l3 2.5 3-2.5" stroke="rgba(255,255,255,0.7)" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
+        {/* Left: CSS cloud-tree + trailing bubbles */}
+        <div className="hero__tagline-visual">
+          <div className="hero__cloud-tree">
+            <div className="hero__cloud-blob hero__cloud-blob--a"></div>
+            <div className="hero__cloud-blob hero__cloud-blob--b"></div>
+            <div className="hero__cloud-blob hero__cloud-blob--c"></div>
+            <div className="hero__cloud-blob hero__cloud-blob--d"></div>
+            <div className="hero__cloud-blob hero__cloud-blob--e"></div>
+            <div className="hero__cloud-trunk"></div>
+          </div>
+          <span className="hero__cloud-bubble hero__cloud-bubble--1"></span>
+          <span className="hero__cloud-bubble hero__cloud-bubble--2"></span>
+          <span className="hero__cloud-bubble hero__cloud-bubble--3"></span>
+          <span className="hero__cloud-bubble hero__cloud-bubble--4"></span>
+        </div>
+
+        {/* Center: text */}
+        <div className="hero__tagline-body">
+          <span className="hero__tagline-title">Explore</span>
+          <span className="hero__tagline-sub">— Your Thoughts —</span>
+        </div>
+
+        {/* Right: down-arrow circle */}
+        <div className="hero__tagline-cta">
+          <svg width="13" height="13" viewBox="0 0 22 22" fill="none">
+            <path d="M11 4v14M4 12l7 6 7-6" stroke="#9b6bb5" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"/>
           </svg>
-        </span>
-        <span className="hero__tagline-text">Scroll to Explore</span>
-        <span className="hero__tagline-arrow">↗</span>
+        </div>
       </div>
     </section>
   );

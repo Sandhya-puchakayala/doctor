@@ -4,7 +4,7 @@ import './Navbar.css';
 const Navbar = ({ visible }) => {
   const [menuOpen, setMenuOpen] = useState(false);
 
-  const navLinks = ['Home', 'About', 'Services', 'Resources', 'Contact'];
+  const navLinks = ['Home', 'About', 'Services', ' VIP Holistic Healing', 'Contact'];
 
   return (
     <nav className={`navbar ${visible ? 'navbar--visible' : ''}`}>
