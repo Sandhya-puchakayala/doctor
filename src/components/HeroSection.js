@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import Navbar from './Navbar';
 import Logo from './Logo';
 import './HeroSection.css';
@@ -17,8 +17,11 @@ const HeroSection = ({ canAnimate }) => {
   const [logoVisible, setLogoVisible]   = useState(false);
   const [navVisible, setNavVisible]     = useState(false);
   const [videoReady, setVideoReady]     = useState(false);
+  const [logoBounds, setLogoBounds]     = useState(null);
 
   const videoRef = useRef(null);
+
+  const handleLogoBounds = useCallback((bounds) => setLogoBounds(bounds), []);
 
   /* Keep hero video buffering silently in the background during intro */
   useEffect(() => {
@@ -61,8 +64,27 @@ const HeroSection = ({ canAnimate }) => {
         <div className="hero__overlay" />
       </div>
 
-      {/* ── Left: logo ── */}
-      <Logo visible={logoVisible} />
+      {/* ── Left column: logo + tagline share identical horizontal bounds ── */}
+      <div
+        className="hero__left-col"
+        style={logoBounds ? {
+          '--logo-left-margin':  `${logoBounds.leftPct}%`,
+          '--logo-right-margin': `${logoBounds.rightPct}%`,
+        } : undefined}
+      >
+        <Logo visible={logoVisible} onBounds={handleLogoBounds} />
+
+        {/* ── Explore Your Thoughts pill ── */}
+        <div
+          className={`hero__tagline ${navVisible ? 'hero__tagline--visible' : ''}`}
+          style={{ backgroundImage: `url(${process.env.PUBLIC_URL}/cta.png)` }}
+        >
+          <div className="hero__tagline-body">
+            <span className="hero__tagline-title">Explore</span>
+            <span className="hero__tagline-sub">— Your Thoughts —</span>
+          </div>
+        </div>
+      </div>
 
       {/* ── Top-right: navbar ── */}
       <Navbar visible={navVisible} />
@@ -82,38 +104,6 @@ const HeroSection = ({ canAnimate }) => {
         </picture>
         {/* subtle vignette at the bottom of the image so it blends with video */}
         <div className="hero__image-fade" />
-      </div>
-
-      {/* ── Explore Your Thoughts pill ── */}
-      <div className={`hero__tagline ${navVisible ? 'hero__tagline--visible' : ''}`}>
-        {/* Left: CSS cloud-tree + trailing bubbles */}
-        <div className="hero__tagline-visual">
-          <div className="hero__cloud-tree">
-            <div className="hero__cloud-blob hero__cloud-blob--a"></div>
-            <div className="hero__cloud-blob hero__cloud-blob--b"></div>
-            <div className="hero__cloud-blob hero__cloud-blob--c"></div>
-            <div className="hero__cloud-blob hero__cloud-blob--d"></div>
-            <div className="hero__cloud-blob hero__cloud-blob--e"></div>
-            <div className="hero__cloud-trunk"></div>
-          </div>
-          <span className="hero__cloud-bubble hero__cloud-bubble--1"></span>
-          <span className="hero__cloud-bubble hero__cloud-bubble--2"></span>
-          <span className="hero__cloud-bubble hero__cloud-bubble--3"></span>
-          <span className="hero__cloud-bubble hero__cloud-bubble--4"></span>
-        </div>
-
-        {/* Center: text */}
-        <div className="hero__tagline-body">
-          <span className="hero__tagline-title">Explore</span>
-          <span className="hero__tagline-sub">— Your Thoughts —</span>
-        </div>
-
-        {/* Right: down-arrow circle */}
-        <div className="hero__tagline-cta">
-          <svg width="13" height="13" viewBox="0 0 22 22" fill="none">
-            <path d="M11 4v14M4 12l7 6 7-6" stroke="#9b6bb5" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"/>
-          </svg>
-        </div>
       </div>
     </section>
   );

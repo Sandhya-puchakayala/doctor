@@ -2,7 +2,8 @@
 .logo {
   position: absolute;
   top: 25%;
-  left: -40px;
+  left: 0;
+  right: 0;
   transform: translateY(-50%);
   z-index: 50;
 
@@ -20,7 +21,7 @@
 }
 
 .logo__img {
-  width: clamp(380px, 43vw, 580px);
+  width: 100%;
   height: auto;
   display: block;
   object-fit: contain;
@@ -29,12 +30,8 @@
 
 @media (max-width: 768px) {
   .logo {
-    top: 30px;
-    left: -22px;
+    top: 10px;
+    left: 0;
     transform: none;
-  }
-
-  .logo__img {
-    width: clamp(300px, 88vw, 420px);
   }
 }
