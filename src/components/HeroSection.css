@@ -335,18 +335,24 @@
   font-family: Waldenburg, Georgia, serif;
   font-size: clamp(14px, 1.7vw, 22px);
   font-weight: 400;
-  color: #ffffff;
+  color: #F8F6FF;
   letter-spacing: 0.02em;
   line-height: 1;
   white-space: nowrap;
+  text-shadow:
+    0 0 8px rgba(220, 200, 255, 0.55),
+    0 0 20px rgba(180, 140, 255, 0.25);
 }
 
 .hero__tagline-sub {
   font-family: Waldenburg, "Waldenburg Fallback", sans-serif;
   font-size: clamp(7px, 0.58vw, 8px);
-  color: rgba(255, 255, 255, 0.72);
+  color: #D8CCF5;
   letter-spacing: 0.18em;
   white-space: nowrap;
+  text-shadow:
+    0 0 6px rgba(200, 170, 255, 0.45),
+    0 0 14px rgba(160, 120, 240, 0.20);
 }
 
 /* ── Right arrow circle ── */
