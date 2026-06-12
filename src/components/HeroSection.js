@@ -77,7 +77,7 @@ const HeroSection = ({ canAnimate }) => {
         {/* ── Explore Your Thoughts pill ── */}
         <div
           className={`hero__tagline ${navVisible ? 'hero__tagline--visible' : ''}`}
-          style={{ backgroundImage: `url(${process.env.PUBLIC_URL}/cta.png)` }}
+          style={{ backgroundImage: `url(${process.env.PUBLIC_URL}/n4y_cta_bg_option4.svg)` }}
         >
           <div className="hero__tagline-body">
             <span className="hero__tagline-title">Explore</span>

@@ -334,7 +334,7 @@
 
 .hero__tagline-title {
   font-family: Waldenburg, Georgia, serif;
-  font-size: clamp(14px, 1.7vw, 22px);
+  font-size: clamp(18px, 2.2vw, 28px);
   font-weight: 400;
   color: #F8F6FF;
   letter-spacing: 0.02em;
@@ -412,7 +412,7 @@
 
   /* pill: placed below logo on mobile */
   .hero__tagline {
-    top: 303px;
+    top: 280px;
     bottom: auto;
     left: var(--logo-left-margin, 0%);
     right: var(--logo-right-margin, 0%);
@@ -421,7 +421,7 @@
   }
 
   .hero__tagline-title {
-    font-size: 16px;
+    font-size: 20px;
   }
 
   .hero__tagline-sub {
