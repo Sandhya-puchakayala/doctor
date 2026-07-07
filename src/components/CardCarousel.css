@@ -1,0 +1,248 @@
+/* ═══════════════════════════════════════════
+   3D coverflow card carousel (page 2)
+   All cards share one theme: deep purple→blue
+   neon, matching the site.
+   ═══════════════════════════════════════════ */
+.cc {
+  position: absolute;
+  inset: 0;
+  z-index: 40;
+  perspective: 1900px;
+  opacity: 0;
+  transition: opacity 0.8s ease 0.2s;
+  pointer-events: none;
+}
+
+.cc--visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.cc__stage {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+}
+
+/* ── Card ── */
+.cc__card {
+  position: absolute;
+  left: 50%;
+  top: 70%;
+  width: clamp(230px, 22vw, 320px);
+  height: clamp(320px, 58vh, 460px);
+  border-radius: 22px;
+  padding: clamp(18px, 1.8vw, 28px);
+  cursor: pointer;
+  overflow: hidden;
+  transform-origin: center center;
+  transition: transform 0.6s cubic-bezier(0.22, 0.61, 0.36, 1),
+              opacity 0.5s ease, box-shadow 0.4s ease, border-color 0.4s ease;
+
+  /* unified theme colour */
+  background:
+    radial-gradient(130% 90% at 50% 15%,
+      rgba(150, 90, 255, 0.42) 0%,
+      rgba(60, 40, 130, 0.55) 38%,
+      rgba(20, 16, 48, 0.92) 68%,
+      rgba(8, 6, 22, 0.97) 100%);
+  border: 1.5px solid rgba(120, 140, 255, 0.42);
+  box-shadow:
+    0 12px 40px rgba(0, 0, 0, 0.5),
+    0 0 24px rgba(90, 120, 255, 0.20),
+    inset 0 0 34px rgba(90, 80, 200, 0.14);
+}
+
+/* Active (front) card glows brighter */
+.cc__card--active {
+  border-color: rgba(170, 150, 255, 0.85);
+  box-shadow:
+    0 18px 60px rgba(0, 0, 0, 0.6),
+    0 0 44px rgba(150, 110, 255, 0.50),
+    0 0 100px rgba(120, 80, 255, 0.28),
+    inset 0 0 44px rgba(130, 95, 235, 0.20);
+}
+
+/* ambient glow blob behind the text (bottom of card) */
+.cc__card-glow {
+  position: absolute;
+  left: 50%;
+  bottom: -30%;
+  width: 120%;
+  height: 70%;
+  transform: translateX(-50%);
+  background: radial-gradient(circle at 50% 50%,
+    rgba(160, 90, 255, 0.55) 0%,
+    rgba(120, 70, 240, 0.25) 40%,
+    transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ── Icon ── */
+.cc__card-icon {
+  position: relative;
+  z-index: 2;
+  width: clamp(30px, 3vw, 40px);
+  height: clamp(30px, 3vw, 40px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  color: #d9c9ff;
+  background: rgba(120, 90, 220, 0.28);
+  border: 1px solid rgba(180, 150, 255, 0.35);
+  margin-bottom: clamp(14px, 1.6vw, 22px);
+}
+
+.cc__card-icon svg { width: 62%; height: 62%; }
+
+/* ── Title ── */
+.cc__card-title {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin: 0 0 clamp(14px, 1.6vw, 20px);
+  font-family: "Arial Narrow", "Helvetica Neue", Arial, sans-serif;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.01em;
+  line-height: 1.02;
+  font-size: clamp(19px, 1.9vw, 27px);
+  color: #ffffff;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+}
+
+.cc__card-title .cc__accent {
+  color: #c39bff;
+  text-shadow: 0 0 16px rgba(170, 110, 255, 0.75);
+}
+
+/* ── List ── */
+.cc__card-list {
+  position: relative;
+  z-index: 2;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(8px, 1vw, 13px);
+}
+
+.cc__card-list li {
+  position: relative;
+  padding-left: 18px;
+  font-family: "Arial Narrow", "Helvetica Neue", Arial, sans-serif;
+  font-size: clamp(10px, 0.85vw, 13px);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: rgba(228, 222, 255, 0.92);
+}
+
+.cc__card-list li::before {
+  content: '›';
+  position: absolute;
+  left: 0;
+  top: -1px;
+  color: #c39bff;
+  font-weight: 700;
+}
+
+/* front card that can open an image */
+.cc__card--clickable {
+  cursor: pointer;
+}
+
+/* ── Opened card overlay (full image + delayed contact form) ── */
+.cc__lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 500;
+  overflow: hidden;
+  background: #07061a;
+  animation: ccFadeIn 0.3s ease;
+}
+
+@keyframes ccFadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* the card image fills the whole screen */
+.cc__lightbox-bg {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* contact form overlaid on the image — hidden until it fades in */
+.cc__lightbox-form {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(40px, 7vh, 90px) 20px;
+  box-sizing: border-box;
+  overflow-y: auto;                 /* scroll the form if it's taller than the screen */
+  background: rgba(7, 6, 26, 0.62);  /* dark scrim so the glass form stays readable */
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.7s ease;
+}
+
+.cc__lightbox-form--show {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.cc__lightbox-close {
+  position: fixed;
+  top: 22px;
+  right: 26px;
+  z-index: 510;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 30px;
+  line-height: 1;
+  color: #fff;
+  cursor: pointer;
+  background: rgba(30, 22, 55, 0.6);
+  border: 1px solid rgba(160, 150, 255, 0.5);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  transition: background 0.25s ease, transform 0.2s ease;
+}
+
+.cc__lightbox-close:hover {
+  background: rgba(70, 45, 130, 0.8);
+  transform: scale(1.06);
+}
+
+/* ── Mobile ── */
+@media (max-width: 600px) {
+  .cc__card {
+    width: clamp(200px, 68vw, 260px);
+    height: clamp(300px, 56vh, 400px);
+    top: 68%;
+  }
+
+  .cc__lightbox-close {
+    top: 14px;
+    right: 16px;
+    width: 40px;
+    height: 40px;
+    font-size: 26px;
+  }
+}

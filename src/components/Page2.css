@@ -1,0 +1,74 @@
+/* ═══════════════════════════════════════════
+   Page 2 – transition video → full-cover image
+   ═══════════════════════════════════════════ */
+.page2 {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  height: 100dvh;          /* better on mobile browsers with dynamic UI bars */
+  overflow: hidden;
+  background: #000;
+}
+
+/* Second-page image: covers the whole viewport on desktop and mobile */
+.page2__bg {
+  position: absolute;
+  inset: 0;
+  background-image: none;   /* set inline */
+  background-size: contain; /* show the FULL image, no cropping */
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+
+/* Transition video sits on top and fades out to reveal the image */
+.page2__video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 2;
+  opacity: 1;
+  transition: opacity 0.7s ease;
+}
+
+.page2__video--fade {
+  opacity: 0;
+}
+
+/* Logo — small, pinned to the top-left corner on page 2 */
+.page2__left-col {
+  position: absolute;
+  left: 28px;
+  top: 4px;
+  width: clamp(120px, 13vw, 170px);
+  z-index: 60;
+  pointer-events: none;
+}
+
+/* override the hero's vertically-centered logo positioning */
+.page2__left-col .logo {
+  top: 0;
+  left: 0;
+  right: auto;
+  transform: none;
+}
+
+@media (max-width: 768px) {
+  .page2__bg {
+    /* keep the focal point centered when the image is cropped on narrow screens */
+    background-position: center center;
+  }
+
+  .page2__left-col {
+    left: 16px;
+    top: 14px;
+    width: clamp(96px, 26vw, 130px);
+  }
+
+  .page2__left-col .logo {
+    top: 0;
+    left: 0;
+    transform: none;
+  }
+}

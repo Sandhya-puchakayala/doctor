@@ -1,0 +1,156 @@
+/* ═══════════════════════════════════════════
+   Contact form — transparent glassy card,
+   overlaid on the card image (lightbox),
+   matching the deep purple→blue neon theme.
+   ═══════════════════════════════════════════ */
+
+/* Transparent glass card */
+.cf__card {
+  position: relative;
+  width: 100%;
+  max-width: 480px;
+  padding: clamp(24px, 3.4vw, 42px);
+  border-radius: 24px;
+  background: rgba(20, 16, 48, 0.28);
+  border: 1.5px solid rgba(150, 130, 255, 0.32);
+  box-shadow:
+    0 20px 60px rgba(0, 0, 0, 0.45),
+    0 0 44px rgba(120, 90, 255, 0.18),
+    inset 0 0 40px rgba(120, 90, 220, 0.10);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+
+.cf__title {
+  margin: 0 0 8px;
+  font-family: "Arial Narrow", "Helvetica Neue", Arial, sans-serif;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  font-size: clamp(26px, 4vw, 40px);
+  color: #ffffff;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.5);
+}
+
+.cf__title span {
+  color: #c39bff;
+  text-shadow: 0 0 18px rgba(170, 110, 255, 0.75);
+}
+
+.cf__subtitle {
+  margin: 0 0 clamp(22px, 3vw, 32px);
+  font-family: "Helvetica Neue", Arial, sans-serif;
+  font-size: clamp(13px, 1.4vw, 15px);
+  line-height: 1.5;
+  color: rgba(224, 218, 255, 0.82);
+}
+
+/* ── Form ── */
+.cf__form {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(14px, 2vw, 20px);
+}
+
+.cf__field {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.cf__field label {
+  font-family: "Arial Narrow", "Helvetica Neue", Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(210, 200, 255, 0.9);
+}
+
+.cf__field input,
+.cf__field select {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 13px 16px;
+  border-radius: 12px;
+  font-family: "Helvetica Neue", Arial, sans-serif;
+  font-size: 15px;
+  color: #ffffff;
+  background: rgba(10, 8, 26, 0.45);
+  border: 1.5px solid rgba(150, 130, 255, 0.30);
+  outline: none;
+  transition: border-color 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+}
+
+.cf__field input::placeholder {
+  color: rgba(210, 200, 255, 0.4);
+}
+
+.cf__field input:focus,
+.cf__field select:focus {
+  border-color: rgba(180, 150, 255, 0.85);
+  background: rgba(20, 14, 44, 0.6);
+  box-shadow: 0 0 0 3px rgba(150, 110, 255, 0.18);
+}
+
+/* dropdown option colours (native menu) */
+.cf__field select option {
+  background: #140f2c;
+  color: #ffffff;
+}
+
+/* ── Submit ── */
+.cf__submit {
+  margin-top: 8px;
+  padding: 15px 20px;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  font-family: "Arial Narrow", "Helvetica Neue", Arial, sans-serif;
+  font-size: 16px;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #ffffff;
+  background: linear-gradient(135deg, #7a4dff 0%, #a25bff 55%, #6a4bff 100%);
+  box-shadow: 0 10px 30px rgba(120, 80, 255, 0.4), 0 0 24px rgba(150, 110, 255, 0.3);
+  transition: transform 0.2s ease, box-shadow 0.25s ease, filter 0.25s ease;
+}
+
+.cf__submit:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.08);
+  box-shadow: 0 14px 40px rgba(120, 80, 255, 0.5), 0 0 40px rgba(150, 110, 255, 0.45);
+}
+
+.cf__submit:active {
+  transform: translateY(0);
+}
+
+.cf__submit:disabled {
+  cursor: default;
+  opacity: 0.7;
+  transform: none;
+  filter: none;
+}
+
+/* ── Error message ── */
+.cf__error {
+  margin: 0;
+  font-family: "Helvetica Neue", Arial, sans-serif;
+  font-size: 13px;
+  line-height: 1.5;
+  color: #ff9db0;
+}
+
+/* ── Thank-you state ── */
+.cf__thanks {
+  font-family: "Helvetica Neue", Arial, sans-serif;
+  font-size: clamp(15px, 1.8vw, 18px);
+  line-height: 1.6;
+  color: rgba(232, 226, 255, 0.95);
+}
+
+.cf__thanks strong {
+  color: #c39bff;
+}

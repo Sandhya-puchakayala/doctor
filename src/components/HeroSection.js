@@ -12,7 +12,7 @@ const VIDEO_URL = process.env.PUBLIC_URL + '/doc_bg_1.mp4';
  *   1 600 ms – logo fades/unblurs in
  *   2 200 ms – navbar slides down from top
  */
-const HeroSection = ({ canAnimate }) => {
+const HeroSection = ({ canAnimate, onExplore }) => {
   const [imgVisible, setImgVisible]     = useState(false);
   const [logoVisible, setLogoVisible]   = useState(false);
   const [navVisible, setNavVisible]     = useState(false);
@@ -77,12 +77,25 @@ const HeroSection = ({ canAnimate }) => {
         {/* ── Explore Your Thoughts pill ── */}
         <div
           className={`hero__tagline ${navVisible ? 'hero__tagline--visible' : ''}`}
-          style={{ backgroundImage: `url(${process.env.PUBLIC_URL}/n4y_cta_bg_option4.svg)` }}
+          style={{ backgroundImage: `url(${process.env.PUBLIC_URL}/hero_button.png)` }}
+          onClick={onExplore}
+          role="button"
+          tabIndex={0}
+          onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') onExplore?.(); }}
         >
           <div className="hero__tagline-body">
             <span className="hero__tagline-title">Explore</span>
             <span className="hero__tagline-sub">— Your Thoughts —</span>
           </div>
+
+          {/* down arrow sitting inside the moon on the right */}
+          <span className="hero__tagline-arrow" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                 strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
+              <line x1="12" y1="4" x2="12" y2="20" />
+              <polyline points="6 13.5 12 20 18 13.5" />
+            </svg>
+          </span>
         </div>
       </div>
 
