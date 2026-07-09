@@ -118,6 +118,12 @@ const CardCarousel = ({ visible }) => {
             zIndex: 100 - abs,
             opacity: hidden ? 0 : 1,
             pointerEvents: hidden ? 'none' : 'auto',
+            backgroundImage:
+              `linear-gradient(180deg,` +
+              ` rgba(2, 10, 40, 0.10) 0%,` +
+              ` rgba(2, 10, 40, 0.25) 45%,` +
+              ` rgba(2, 8, 30, 0.55) 100%),` +
+              ` url(${process.env.PUBLIC_URL}/cards_bg.jpeg)`,
           };
           return (
             <div
