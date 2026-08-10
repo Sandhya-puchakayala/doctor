@@ -35,6 +35,23 @@ const CARDS = [
     items: ['Career Counselling & Learning Issues', 'Time-Management Therapy', 'Decision-Making Therapy', 'Goal Setting & Achievement', 'Corporate Psychology Services'] },
 ];
 
+/* Diseases whose artwork in public/ is NOT named after the item (see
+   diseaseImage below). The Emotional Health exports dropped the "(CBT)"-style
+   suffix and carry a few spelling slips — THERAPAY / CONGNITIVE / CAMPATIBILITY
+   — so they are mapped by hand instead of renaming the files on disk. Verified
+   against the poster artwork, so CBT and CT are not transposed. */
+const IMAGE_OVERRIDES = {
+  'Cognitive Behavioral Therapy (CBT)':  'COGNITIVE BEHAVIORAL THERAPAY.png',
+  'Behavioral Therapy (BT)':             'BEHAVIORAL THERAPY.png',
+  'Cognitive Therapy (CT)':              'CONGNITIVE THERAPY.png',
+  'Dialectical Behaviour Therapy (DBT)': 'DIALECTICAL BEHAVIOUR THERAPY.png',
+  'Compatibility Psychology Test (CPT)': 'CAMPATIBILITY PSYCHOLOGY TEST.png',
+  /* "INTEMACY" is a typo in the exported filename, not in the card label */
+  'Couple Therapy & Intimacy Counselling': 'COUPLE THERAPY & INTEMACY COUNSELLING.png',
+  /* filename spaces the en-dash and drops "INTERACTION"; both dashes are U+2013 */
+  'Parent–Child Interaction Therapy': 'PARENT – CHILD THERAPY.png',
+};
+
 const N = CARDS.length;
 
 /* Category labels ("Mind Care", "Inner Healing", …) shared with the contact form */
@@ -81,8 +98,10 @@ const CardCarousel = ({ visible }) => {
   /* Per-disease artwork lives in public/ under the uppercased item name, e.g.
      "Panic Attacks" -> public/"PANIC ATTACKS.png". Deriving the filename means
      a new disease image only has to be dropped into the folder, never wired up
-     here. Items with no image yet fall back to the card's own picture. */
-  const diseaseImage = (item) => `${item.toUpperCase()}.png`;
+     here; IMAGE_OVERRIDES covers the files that don't follow that pattern.
+     Items with no image yet fall back to the card's own picture. */
+  const diseaseImage = (item) =>
+    IMAGE_OVERRIDES[item] || `${item.toUpperCase()}.png`;
 
   const openDisease = (card, item) => {
     const file = diseaseImage(item);
