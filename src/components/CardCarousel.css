@@ -169,6 +169,34 @@
   text-shadow: 0 1px 4px rgba(0, 0, 0, 0.9);
 }
 
+/* Each disease is a button that opens its own image. Strip every UA button
+   style so it renders exactly like the plain <li> text it replaced; the
+   properties the browser would otherwise override are re-inherited by hand. */
+.cc__card-item {
+  display: block;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  appearance: none;
+  font: inherit;
+  letter-spacing: inherit;
+  text-transform: inherit;
+  text-align: left;
+  color: inherit;
+  text-shadow: inherit;
+  cursor: pointer;
+  transition: color 0.2s ease, text-shadow 0.2s ease;
+}
+
+.cc__card-item:hover,
+.cc__card-item:focus-visible {
+  color: #9fdcff;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.9), 0 0 10px rgba(120, 200, 255, 0.55);
+  outline: none;
+}
+
 /* front card that can open an image */
 .cc__card--clickable {
   cursor: pointer;
@@ -189,11 +217,13 @@
   to   { opacity: 1; }
 }
 
-/* the card image fills the whole screen */
+/* The disease posters are portrait 2:3 and carry text right to their edges, so
+   `cover` cropped the headline off the top on a landscape screen. `contain`
+   keeps the whole poster readable; the .cc__lightbox backdrop fills the rest. */
 .cc__lightbox-bg {
   position: absolute;
   inset: 0;
-  background-size: cover;
+  background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
 }

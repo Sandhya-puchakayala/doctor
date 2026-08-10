@@ -78,6 +78,23 @@ const CardCarousel = ({ visible }) => {
 
   const imgSrc = (file) => `${process.env.PUBLIC_URL}/${encodeURIComponent(file)}`;
 
+  /* Per-disease artwork lives in public/ under the uppercased item name, e.g.
+     "Panic Attacks" -> public/"PANIC ATTACKS.png". Deriving the filename means
+     a new disease image only has to be dropped into the folder, never wired up
+     here. Items with no image yet fall back to the card's own picture. */
+  const diseaseImage = (item) => `${item.toUpperCase()}.png`;
+
+  const openDisease = (card, item) => {
+    const file = diseaseImage(item);
+    const category = card.title.join(' ');
+    const probe = new Image();
+    probe.onload = () => setLightbox({ image: file, category });
+    probe.onerror = () => {
+      if (card.image) setLightbox({ image: card.image, category });
+    };
+    probe.src = imgSrc(file);
+  };
+
   const onCardClick = (i) => {
     if (i === active) {
       // clicking the front card opens its image fullscreen (if it has one)
@@ -86,6 +103,13 @@ const CardCarousel = ({ visible }) => {
     } else {
       setActive(i); // clicking a side card brings it to the front
     }
+  };
+
+  const onItemClick = (e, i, card, item) => {
+    /* On a side card, let the click bubble so the card just comes to the front */
+    if (i !== active) return;
+    e.stopPropagation();
+    openDisease(card, item);
   };
 
   /* responsive geometry */
@@ -141,7 +165,18 @@ const CardCarousel = ({ visible }) => {
               </h3>
 
               <ul className="cc__card-list">
-                {card.items.map((it) => <li key={it}>{it}</li>)}
+                {card.items.map((it) => (
+                  <li key={it}>
+                    {/* a real button so it is keyboard- and screen-reader-reachable */}
+                    <button
+                      type="button"
+                      className="cc__card-item"
+                      onClick={(e) => onItemClick(e, i, card, it)}
+                    >
+                      {it}
+                    </button>
+                  </li>
+                ))}
               </ul>
 
               <span className="cc__card-glow" />
