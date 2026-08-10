@@ -20,6 +20,13 @@
   pointer-events: all;
 }
 
+/* wrapper when the logo doubles as a home link — must not alter layout */
+.logo__link {
+  display: block;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
 .logo__img {
   width: 100%;
   height: auto;

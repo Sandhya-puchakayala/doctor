@@ -14,8 +14,11 @@
 .page2__bg {
   position: absolute;
   inset: 0;
-  background-image: none;   /* set inline */
-  background-size: contain; /* show the FULL image, no cropping */
+  background-image: none;  /* set inline */
+  /* The art is 16:9; `contain` left bars on the sides of wider viewports, so
+     fill edge-to-edge instead and let the excess height crop (~3% top and
+     bottom at 1920x1020 — well clear of the headline and figure). */
+  background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;
 }
@@ -56,7 +59,10 @@
 
 @media (max-width: 768px) {
   .page2__bg {
-    /* keep the focal point centered when the image is cropped on narrow screens */
+    /* On a narrow/portrait screen `cover` would crop the sides hard enough to
+       slice the "my past" headline in half, so match the width exactly and let
+       the black page background band the top/bottom instead. Still full-width. */
+    background-size: 100% auto;
     background-position: center center;
   }
 

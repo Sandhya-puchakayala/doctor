@@ -4,10 +4,18 @@ import Logo from './Logo';
 import CardCarousel from './CardCarousel';
 import './Page2.css';
 
-const TRANSITION_VIDEO =
-  'https://res.cloudinary.com/dawgv7mq0/video/upload/q_auto,f_auto/Doctor_transion_1_final_1_toxl15.mp4';
-const SECOND_IMAGE =
-  'https://res.cloudinary.com/dawgv7mq0/image/upload/v1778342358/Secondpage__image_fxbkso.png';
+const DESKTOP_VIDEO = process.env.PUBLIC_URL + '/doc_web_video.mp4';
+const MOBILE_VIDEO  = process.env.PUBLIC_URL + '/doc_mobile_video.mp4';
+
+/* public/"my past.png" — the space has to stay percent-encoded in the URL */
+const SECOND_IMAGE = process.env.PUBLIC_URL + '/my%20past.png';
+
+/* Matches the 768px breakpoint in Page2.css. A <source media=""> won't work
+   here — Chrome ignores it on <video> — so the clip is picked in JS.
+   Resolved once on mount: it's a ~2s transition, so re-picking on resize
+   would only ever restart it mid-play. */
+const pickTransitionVideo = () =>
+  window.matchMedia('(max-width: 768px)').matches ? MOBILE_VIDEO : DESKTOP_VIDEO;
 
 /**
  * Page 2 — plays a short (~2s) transition video, then reveals the
@@ -16,6 +24,7 @@ const SECOND_IMAGE =
 const Page2 = () => {
   const [fading, setFading]     = useState(false);   // start fading the video out
   const [videoGone, setVideoGone] = useState(false); // unmount video after fade
+  const [videoSrc] = useState(pickTransitionVideo);  // desktop vs mobile clip
   const videoRef = useRef(null);
   const doneRef  = useRef(false);
 
@@ -53,9 +62,9 @@ const Page2 = () => {
       {/* Navbar — same as the hero page, fades in with the image */}
       <Navbar visible={videoGone} />
 
-      {/* Logo — same as the hero page, fades in with the image */}
+      {/* Logo — same as the hero page, fades in with the image; links home */}
       <div className="page2__left-col">
-        <Logo visible={videoGone} />
+        <Logo visible={videoGone} to="/" />
       </div>
 
       {/* 3D card carousel over the image */}
@@ -66,7 +75,7 @@ const Page2 = () => {
         <video
           ref={videoRef}
           className={`page2__video ${fading ? 'page2__video--fade' : ''}`}
-          src={TRANSITION_VIDEO}
+          src={videoSrc}
           muted
           playsInline
           autoPlay

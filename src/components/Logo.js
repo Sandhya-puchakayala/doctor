@@ -1,7 +1,8 @@
 import { useRef, useCallback } from 'react';
+import { Link } from 'react-router-dom';
 import './Logo.css';
 
-const Logo = ({ visible, onBounds }) => {
+const Logo = ({ visible, onBounds, to }) => {
   const imgRef = useRef(null);
 
   const measureBounds = useCallback(() => {
@@ -42,15 +43,26 @@ const Logo = ({ visible, onBounds }) => {
     }
   }, [onBounds]);
 
+  const image = (
+    <img
+      ref={imgRef}
+      src={process.env.PUBLIC_URL + '/N4Y_logo.png'}
+      alt="N4Y – Nonjudgmental 4 You"
+      className="logo__img"
+      onLoad={measureBounds}
+    />
+  );
+
   return (
     <div className={`logo ${visible ? 'logo--visible' : ''}`}>
-      <img
-        ref={imgRef}
-        src={process.env.PUBLIC_URL + '/N4Y_logo.png'}
-        alt="N4Y – Nonjudgmental 4 You"
-        className="logo__img"
-        onLoad={measureBounds}
-      />
+      {/* `to` turns the logo into a route link (used on page 2 to get home) */}
+      {to ? (
+        <Link to={to} className="logo__link" aria-label="Go to the home page">
+          {image}
+        </Link>
+      ) : (
+        image
+      )}
     </div>
   );
 };

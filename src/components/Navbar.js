@@ -1,19 +1,33 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import './Navbar.css';
+
+/* `to` = real route, `href` = in-page anchor */
+const navLinks = [
+  { label: 'Home', to: '/' },
+  { label: 'About', href: '#about' },
+  { label: 'Services', href: '#services' },
+  { label: ' VIP Holistic Healing', href: '#vip-holistic-healing' },
+  { label: 'Contact', href: '#contact' },
+];
 
 const Navbar = ({ visible }) => {
   const [menuOpen, setMenuOpen] = useState(false);
 
-  const navLinks = ['Home', 'About', 'Services', ' VIP Holistic Healing', 'Contact'];
-
   return (
     <nav className={`navbar ${visible ? 'navbar--visible' : ''}`}>
       <ul className={`navbar__links ${menuOpen ? 'navbar__links--open' : ''}`}>
-        {navLinks.map((link) => (
-          <li key={link} className="navbar__item">
-            <a href={`#${link.toLowerCase()}`} className="navbar__link">
-              {link}
-            </a>
+        {navLinks.map(({ label, to, href }) => (
+          <li key={label} className="navbar__item">
+            {to ? (
+              <Link to={to} className="navbar__link">
+                {label}
+              </Link>
+            ) : (
+              <a href={href} className="navbar__link">
+                {label}
+              </a>
+            )}
           </li>
         ))}
       </ul>
