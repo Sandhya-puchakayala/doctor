@@ -140,10 +140,14 @@
   height: clamp(54px, 6.2vw, 72px);
   pointer-events: auto;
 
-  /* hero_button.png has a baked-in frame + padding; zoom past 100%
-     so the empty margins are cropped and the artwork fills the pill */
-  background-size: 120%;
-  background-position: center center;
+  /* hero_button.png (1536x1024) has a baked-in neon frame + outer glow.
+     The artwork inside the frame spans x 39-1497 / y 303-701, and the moon
+     ring on the right occupies x 1146-1437 / y 352-643.
+     These values crop exactly to x 43-1493 / y 347-648 — just inside the
+     baked-in frame stroke, with the whole moon (and the arrow sitting in
+     it) intact instead of being clipped at the top-right. */
+  background-size: 106% 340%;
+  background-position: 50% 48%;
   background-repeat: no-repeat;
 
   /* neon blue border */
@@ -361,9 +365,11 @@
 /* ── Down arrow inside the moon (right side) ── */
 .hero__tagline-arrow {
   position: absolute;
+  /* moon centre in the cropped background sits at 86.1% across → 13.9% from
+     the right; translate(50%) centres the arrow on that point at any size */
   top: 50%;
-  right: 7%;
-  transform: translateY(-50%);
+  right: 13.9%;
+  transform: translate(50%, -50%);
   width: clamp(18px, 2.1vw, 26px);
   height: clamp(18px, 2.1vw, 26px);
   display: flex;
