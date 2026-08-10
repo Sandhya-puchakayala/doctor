@@ -50,6 +50,29 @@ const IMAGE_OVERRIDES = {
   'Couple Therapy & Intimacy Counselling': 'COUPLE THERAPY & INTEMACY COUNSELLING.png',
   /* filename spaces the en-dash and drops "INTERACTION"; both dashes are U+2013 */
   'Parent–Child Interaction Therapy': 'PARENT – CHILD THERAPY.png',
+  /* "GREF" is a typo in the filename, which also spells out "AND" for "&" */
+  'Grief & Loss': 'GREF AND LOSS.png',
+  /* "MARRITAL" is a typo in the filename, which also spaces the dash differently */
+  'Pre- & Post-Marital Therapy': 'PRE-&POST MARRITAL THERAPY.png',
+  /* Despite the "PRE & POST" filename this poster reads "PRENATAL DEPRESSION",
+     so it is mapped to the prepartum item only. Postpartum Depression has no
+     artwork of its own yet and deliberately stays unmapped rather than showing
+     a prenatal poster under the wrong heading. */
+  'Prepartum Depression': 'PRE & POST PARTUM DEPRESSION.png',
+  'Fear-Free Therapy & Phobias': 'FEAR FREE THERAPY & PHOBIAS.png',
+  /* lower-case on disk — kept verbatim because Vercel serves case-sensitively */
+  'Compassion Focused Therapy (CFT)': 'Compassion focused therapy.png',
+
+  /* Career Mind: two filenames describe the wrong poster, so these are mapped
+     from the artwork rather than the name. "CORPORATE.png" is the career/
+     learning poster (block letters spelling CAREER) and "GOAL SETTING.png" is
+     the time poster (hourglass, "you need more clarity") — the real goal-setting
+     art is the "(2)" file. Do not re-derive these from the filenames. */
+  'Career Counselling & Learning Issues': 'CORPORATE.png',
+  'Time-Management Therapy':              'GOAL SETTING.png',
+  'Decision-Making Therapy':              'DECISION - MAKING.png',
+  'Goal Setting & Achievement':           'GOAL SETTING (2).png',
+  'Corporate Psychology Services':        'CORPORATE PSYCHOLOGY.png',
 };
 
 const N = CARDS.length;
